@@ -1,0 +1,25 @@
+services:
+  arangodb-agent-01:
+    image: arangodb:3.8.7
+    container_name: arangodb-agent-01
+    restart: always
+    environment:
+      - ARANGO_RANDOM_ROOT_PASSWORD=1
+    volumes:
+      - '/path/to/folder:/etc/arangodb'
+      - '/path/to/folder:/var/lib/arangodb3-apps'
+      - '/path/to/folder:/var/lib/arangodb3'
+    networks:
+      - 'arangodb-cluster'
+    ports:
+      - "5001:8529"
+    command: >
+      arangod
+      #some generated jtw token to connect between instances
+      --server.jwt-secret-keyfile=/etc/arangodb/secret.jwt
+      --server.endpoint tcp://0.0.0.0:8529
+      --agency.my-address tcp://your.ip.addr:5001
+      --agency.endpoint tcp://your.ip.addr:5001
+      --agency.size 1
+      --agency.activate true
+      --agency.supervision true
