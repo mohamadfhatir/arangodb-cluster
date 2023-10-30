@@ -1,5 +1,5 @@
 
-***An example how to deploy arangodb cluster on docker***
+# An example how to deploy arangodb cluster on docker
 
 [Please read Arangodb Cluster limitation before deploy](https://docs.arangodb.com/3.11/deploy/deployment/single-instance-vs-cluster/)
 
