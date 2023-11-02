@@ -11,7 +11,7 @@ services:
       - '/path/to/folder:/var/lib/arangodb3-apps'
       - '/path/to/folder:/var/lib/arangodb3'
     networks:
-      - 'arangodb-cluster'
+      - 'arangodb'
     ports:
       - "5001:8529"
     command: >
