@@ -1,3 +1,4 @@
+version: '3.5'
 services:
   arangodb-agent-01:
     image: arangodb:3.8.7
@@ -23,3 +24,8 @@ services:
       --agency.size 1
       --agency.activate true
       --agency.supervision true
+
+networks:
+  paper-arangodb:
+    driver: bridge
+    name: arangodb
