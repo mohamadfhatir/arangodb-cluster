@@ -1,7 +1,8 @@
+version: '3.5'
 services:
   arangodb-data-01:
     image: arangodb:3.8.7
-    container_name: arangodb-data-01
+    container_name: arangodb-data-04
     restart: always
     environment:
       - ARANGO_RANDOM_ROOT_PASSWORD=1
@@ -11,13 +12,17 @@ services:
       - '/path/to/folder/data/folder:/var/lib/arangodb3'
       - '/usr/share/zoneinfo/Asia/Jakarta:/etc/localtime'
     networks:
-      - 'arangodb-cluster'
+      - 'arangodb'
     ports:
       - "6001:8529"
     command: >
       arangod
       --server.jwt-secret-keyfile=/etc/arangodb/secret.jwt
       --server.endpoint tcp://0.0.0.0:8529
-      --cluster.my-address tcp://your.ip.addr:6001
+      --cluster.my-address tcp://insert.your.ip:6001
       --cluster.my-role DBSERVER
-      --cluster.agency-endpoint tcp://your.ip.addr:5001
+      --cluster.agency-endpoint tcp://insert.agency.ip:5001
+networks:
+  paper-arangodb:
+    driver: bridge
+    name: arangodb
