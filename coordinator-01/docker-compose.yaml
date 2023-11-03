@@ -1,3 +1,4 @@
+version: '3.5'
 services:
   arangodb-coordinator-01:
     image: arangodb:3.8.7
@@ -6,18 +7,23 @@ services:
     environment:
       - ARANGO_RANDOM_ROOT_PASSWORD=1
     volumes:
-      - '/path/to/conf/folder:/etc/arangodb'
-      - '/path/to/apps/folder:/var/lib/arangodb3-apps'
-      - '/path/to/folder/data/folder:/var/lib/arangodb3'
+      - '/path/to/folder:/etc/arangodb'
+      - '/path/to/folder:/var/lib/arangodb3-apps'
+      - '/path/to/folder:/var/lib/arangodb3'
     networks:
-      - 'arangodb-cluster'
+      - 'arangodb'
     ports:
       - "8529:8529"
     command: >
       arangod
       --server.jwt-secret-keyfile=/etc/arangodb/secret.jwt
       --server.endpoint tcp://0.0.0.0:8529
-      --cluster.my-address tcp://your.ip.addr:8529
+      --cluster.my-address tcp://10.188.1.19:8529
       --cluster.my-role COORDINATOR
-      --cluster.agency-endpoint tcp://your.ip.addr:5001
-      --cluster.system-replication-factor 1
+      --cluster.agency-endpoint tcp://10.188.1.19:5001
+      --cluster.default-replication-factor 3
+
+networks:
+  paper-arangodb:
+    driver: bridge
+    name: arangodb
